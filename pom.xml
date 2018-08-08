@@ -11,13 +11,17 @@
     <name>spring-cloud-base</name>
     <description>Demo project for Spring Cloud</description>
     <modules>
-        <module>discovery-eureka</module>
+        <module>discovery-eureka1</module>
+        <module>discovery-eureka2</module>
+        <module>comsumer-business-service1</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <spring-cloud.version>Finchley.SR1</spring-cloud.version>
         <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
     </properties>
