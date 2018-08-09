@@ -11,8 +11,12 @@
     <name>spring-cloud-base</name>
     <description>Demo project for Spring Cloud</description>
     <modules>
-        <module>discovery-eureka1</module>
-        <module>discovery-eureka2</module>
+        <module>discovery-eureka-ha1</module>
+        <module>discovery-eureka-ha2</module>
+        <module>discovery-eureka-ha-security1</module>
+        <module>discovery-eureka-ha-security2</module>
+        <module>discovery-eureka-single</module>
+        <module>discovery-eureka-single-security</module>
         <module>comsumer-business-service1</module>
     </modules>
 

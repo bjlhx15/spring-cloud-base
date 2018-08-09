@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>discovery-eureka1</artifactId>
+	<artifactId>discovery-eureka-ha-security1</artifactId>
 	<packaging>jar</packaging>
 
-	<name>discovery-eureka1</name>
+	<name>discovery-eureka-ha-security1</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
