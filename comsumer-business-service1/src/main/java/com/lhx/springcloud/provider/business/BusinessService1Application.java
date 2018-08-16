@@ -1,4 +1,4 @@
-package com.lhx.springcloud.comsumer.business;
+package com.lhx.springcloud.provider.business;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

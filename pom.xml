@@ -18,6 +18,10 @@
         <module>discovery-eureka-single</module>
         <module>discovery-eureka-single-security</module>
         <module>comsumer-business-service1</module>
+        <module>provider-business-service1</module>
+        <module>provider-business-service2</module>
+        <module>comsumer-business-service1-org</module>
+        <module>base-model</module>
     </modules>
 
     <properties>
