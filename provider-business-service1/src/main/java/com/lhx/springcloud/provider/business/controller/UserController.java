@@ -14,6 +14,7 @@ import java.util.Map;
 public class UserController {
     @GetMapping("/get")
     public User get(){
+        System.err.println("服务提供方1提供服务");
         return new User("李宏旭",29);
     }
     @PostMapping("/save")

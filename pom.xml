@@ -11,6 +11,7 @@
     <name>spring-cloud-base</name>
     <description>Demo project for Spring Cloud</description>
     <modules>
+        <module>base-model</module>
         <module>discovery-eureka-ha1</module>
         <module>discovery-eureka-ha2</module>
         <module>discovery-eureka-ha-security1</module>
@@ -21,7 +22,7 @@
         <module>provider-business-service1</module>
         <module>provider-business-service2</module>
         <module>comsumer-business-service1-org</module>
-        <module>base-model</module>
+        <module>comsumer-business-service2-ribbon</module>
     </modules>
 
     <properties>
