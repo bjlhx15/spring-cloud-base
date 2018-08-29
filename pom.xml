@@ -18,11 +18,14 @@
         <module>discovery-eureka-ha-security2</module>
         <module>discovery-eureka-single</module>
         <module>discovery-eureka-single-security</module>
-        <module>comsumer-business-service1</module>
         <module>provider-business-service1</module>
         <module>provider-business-service2</module>
+        <module>provider-business-service1-without-eureka</module>
+        <module>provider-business-service2-without-eureka</module>
+        <module>comsumer-business-service1</module>
         <module>comsumer-business-service1-org</module>
         <module>comsumer-business-service2-ribbon</module>
+        <module>comsumer-business-service3-ribbon-without-eureka</module>
     </modules>
 
     <properties>
