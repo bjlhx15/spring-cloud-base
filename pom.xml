@@ -22,10 +22,14 @@
         <module>provider-business-service2</module>
         <module>provider-business-service1-without-eureka</module>
         <module>provider-business-service2-without-eureka</module>
-        <module>comsumer-business-service1</module>
         <module>comsumer-business-service1-org</module>
         <module>comsumer-business-service2-ribbon</module>
         <module>comsumer-business-service3-ribbon-without-eureka</module>
+        <module>comsumer-business-service4-feign</module>
+        <module>comsumer-business-service5-feign-hystrix</module>
+        <module>comsumer-business-service6-feign-hystrix-factory</module>
+        <module>comsumer-business-service7-ribbon-hystrix</module>
+        <module>comsumer-business-gateway</module>
     </modules>
 
     <properties>
