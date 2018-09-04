@@ -19,3 +19,6 @@
       provider-business-service2-without-eureka  
     有认证 没有使用注册中心 RestTemplate方式调用，并且使用ribbon进行负载均衡基础使用，  
     注意此时负载均衡不能加载RestTemplete上
+*   comsumer-business-service4-feign     有认证 feign方式调用
+*   comsumer-business-service5-feign-hystrix     有认证 feign方式调用 增加熔断机制
+*   comsumer-business-service6-feign-hystrix-factory    有认证 ribbon 方式调用 增加熔断机制 
