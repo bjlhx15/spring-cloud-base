@@ -41,45 +41,45 @@
 ### service-mysql-mybatis-c3p0  
 1.mybatis generate plugin 逆向工程   
 &nbsp;&nbsp;1.1.添加mybatis generate plugin插件  
-    ```
-        <build>
-            <plugins>
-                <plugin>
-                    <!--
-                    用maven mybatis插件
-                    在plugin里面添加依赖包得引用
-                    -->
-                    <groupId>org.mybatis.generator</groupId>
-                    <artifactId>mybatis-generator-maven-plugin</artifactId>
-                    <version>1.3.5</version>
-                    <!-- mybatis用于生成代码的配置文件 -->
-                    <configuration>
-                        <!-- 配置文件路径　-->
-                        <configurationFile>src/main/resources/generator/generatorConfig.xml</configurationFile>
-                        <verbose>true</verbose>
-                        <overwrite>true</overwrite>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>log4j</groupId>
-                            <artifactId>log4j</artifactId>
-                            <version>1.2.17</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.mybatis</groupId>
-                            <artifactId>mybatis</artifactId>
-                            <version>3.4.5</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>mysql</groupId>
-                            <artifactId>mysql-connector-java</artifactId>
-                            <version>5.1.41</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-            </plugins>
-        </build>
-    ```
+```$xslt
+  <build>
+      <plugins>
+          <plugin>
+              <!--
+              用maven mybatis插件
+              在plugin里面添加依赖包得引用
+              -->
+              <groupId>org.mybatis.generator</groupId>
+              <artifactId>mybatis-generator-maven-plugin</artifactId>
+              <version>1.3.5</version>
+              <!-- mybatis用于生成代码的配置文件 -->
+              <configuration>
+                  <!-- 配置文件路径　-->
+                  <configurationFile>src/main/resources/generator/generatorConfig.xml</configurationFile>
+                  <verbose>true</verbose>
+                  <overwrite>true</overwrite>
+              </configuration>
+              <dependencies>
+                  <dependency>
+                      <groupId>log4j</groupId>
+                      <artifactId>log4j</artifactId>
+                      <version>1.2.17</version>
+                  </dependency>
+                  <dependency>
+                      <groupId>org.mybatis</groupId>
+                      <artifactId>mybatis</artifactId>
+                      <version>3.4.5</version>
+                  </dependency>
+                  <dependency>
+                      <groupId>mysql</groupId>
+                      <artifactId>mysql-connector-java</artifactId>
+                      <version>5.1.41</version>
+                  </dependency>
+              </dependencies>
+          </plugin>
+      </plugins>
+  </build>
+```
 &nbsp;&nbsp;1.2.添加generatorConfig文件  
 &nbsp;&nbsp;1.3.运行 mybatis-generator:generate 即可  
 2.mysql mybatis c3p0 的pom配置
