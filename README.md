@@ -25,6 +25,19 @@
 
 
 ## service-db 数据库操作项目
+首先：springboot默认支持的连接池有dbcp,dbcp2, tomcat, hikari四种连接池  
+*    由于Tomcat数据源连接池的性能和并发，在tomcat可用时，我们总是优先使用它。  
+*    如果HikariCP可用，我们将使用它。  
+*    如果Commons DBCP可用，我们将使用它，但在生产环境不推荐使用它。  
+*    最后，如果Commons DBCP2可用，我们将使用它  
+　　  即自动优先级tomcat>HikariCP>DBCP>DBCP2  
+注意：2.0后将HikariCP设置为默认链接池
+#### springboot数据库连接：
+*    有两种方法与数据库建立连接，一种是集成Mybatis，另一种用JdbcTemplate
+*    用JdbcTemplate需要的包：  
+        mysql-connector-java、spring-boot-starter-jdbc
+*    集成mybatis需要的包：  
+        mysql-connector-java、spring-boot-starter-jdbc、mybatis-spring-boot-starter
 ### service-mysql-mybatis-c3p0  
 1.mybatis generate plugin 逆向工程   
 &nbsp;&nbsp;1.1.添加mybatis generate plugin插件  

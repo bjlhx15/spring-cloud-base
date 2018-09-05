@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhx.springcloud.provider.business.mapper.auto.UserStudyMapper">
+  <resultMap id="BaseResultMap" type="com.lhx.springcloud.provider.business.po.auto.UserStudy">
+    <id column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="s_age" jdbcType="VARCHAR" property="sAge" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_id, user_name, s_age
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_study
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_study
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lhx.springcloud.provider.business.po.auto.UserStudy">
+    insert into user_study (s_id, user_name, s_age
+      )
+    values (#{sId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{sAge,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhx.springcloud.provider.business.po.auto.UserStudy">
+    insert into user_study
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="sAge != null">
+        s_age,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="sAge != null">
+        #{sAge,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhx.springcloud.provider.business.po.auto.UserStudy">
+    update user_study
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="sAge != null">
+        s_age = #{sAge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhx.springcloud.provider.business.po.auto.UserStudy">
+    update user_study
+    set user_name = #{userName,jdbcType=VARCHAR},
+      s_age = #{sAge,jdbcType=VARCHAR}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+</mapper>

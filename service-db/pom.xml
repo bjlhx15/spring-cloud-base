@@ -13,5 +13,11 @@
     <modules>
         <module>service1-mysql-mybatis-c3p0</module>
         <module>service2-mysql-mybatis-c3p0-pagehelper</module>
+        <module>service3-mysql-mybatis-dbcp2</module>
+        <module>service4-mysql-mybatis-dbcp</module>
+        <module>service5-mysql-mybatis-tomcat-jdbc</module>
+        <module>service6-mysql-mybatis-hikariCP</module>
+        <module>service7-mysql-mybatis-druid</module>
+        <module>service8-mysql-mybatis-druid-monitor</module>
     </modules>
 </project>
