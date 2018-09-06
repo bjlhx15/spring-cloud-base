@@ -29,7 +29,10 @@
         <module>comsumer-business-service5-feign-hystrix</module>
         <module>comsumer-business-service6-feign-hystrix-factory</module>
         <module>comsumer-business-service7-ribbon-hystrix</module>
-        <module>service-db</module>
+        <module>common-util</module>
+        <module>service1-db</module>
+        <module>service2-log</module>
+        <module>service3-cache</module>
     </modules>
 
     <properties>

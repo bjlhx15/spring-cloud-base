@@ -38,7 +38,7 @@
         mysql-connector-java、spring-boot-starter-jdbc
 *    集成mybatis需要的包：  
         mysql-connector-java、spring-boot-starter-jdbc、mybatis-spring-boot-starter
-### service-mysql-mybatis-c3p0  
+### service1-mysql-mybatis-c3p0  
 1.mybatis generate plugin 逆向工程   
 &nbsp;&nbsp;1.1.添加mybatis generate plugin插件  
 ```$xslt
@@ -131,3 +131,40 @@ mybatis.mapper-locations=classpath:mappers/auto/*.xml
 ```$xslt
 @MapperScan("com.lhx.springcloud.provider.business.mapper")//将项目中对应的mapper类的路径加进来
 ```
+### service2-mysql-mybatis-c3p0-pagehelper
+### service3-mysql-mybatis-dbcp2
+### service4-mysql-mybatis-dbcp
+### service5-mysql-mybatis-tomcat-jdbc
+### service6-mysql-mybatis-hikariCP
+### service7-mysql-mybatis-druid
+### service8-mysql-mybatis-druid-monitor
+
+# common-util 通用工具帮助
+## utils1-hot-deploy 热部署
+```$xslt
+        <!-- 只需引入spring-boot-devtools 即可实现热部署 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+            <!-- optional=true,依赖不会传递，该项目依赖devtools；之后依赖该项目的项目如果想要使用devtools，需要重新引入 -->
+        </dependency>
+```    
+```$xslt
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- 如果没有该项配置，devtools不会起作用，即应用不会restart -->
+                <configuration><fork>true</fork></configuration>
+            </plugin>
+```
+* 方式一、启动后，可以使用ctrl+shift+F9 重新编译，编译后会自动部署  
+* 方式二、或者设置自动编译：setting→build→compiler→ make project automatically；  
+         ctrl + shift + alt + /,选择Registry,勾上 Compiler autoMake allow when app running
+*   注意1：spring-boot-devtools 是一个为开发者服务的一个模块，其中最重要的功能就是自动应用代码更改到最新的App上面去。  
+    原理是在发现代码有更改之后，重新启动应用，但是速度比手动停止后再启动还要更快，更快指的不是节省出来的手  
+    工操作的时间。
+*   注意2：其深层原理是： 
+       使用了两个ClassLoader，一个Classloader加载那些不会改变的类（第三方Jar包），另一个ClassLoader加载会更  
+       改的类，称为 restart ClassLoader,这样在有代码更改的时候，原来的restart ClassLoader 被丢弃，重新创建  
+       一个restart ClassLoader，由于需要加载的类相比较少，所以实现了较快的重启时间（5秒以内）。
