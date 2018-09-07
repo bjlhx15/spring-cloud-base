@@ -14,5 +14,6 @@
         <module>utils1-hot-deploy</module>
         <module>utils2-swagger2</module>
         <module>utils3-httpclient</module>
+        <module>utils4-cors</module>
     </modules>
 </project>
