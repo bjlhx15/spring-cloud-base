@@ -13,5 +13,6 @@
     <modules>
         <module>utils1-hot-deploy</module>
         <module>utils2-swagger2</module>
+        <module>utils3-httpclient</module>
     </modules>
 </project>
