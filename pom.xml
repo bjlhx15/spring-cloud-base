@@ -31,8 +31,8 @@
         <module>comsumer-business-service7-ribbon-hystrix</module>
         <module>common-util</module>
         <module>service1-db</module>
-        <module>service2-log</module>
-        <module>service3-cache</module>
+        <!--<module>service2-log</module>-->
+        <!--<module>service3-cache</module>-->
     </modules>
 
     <properties>
