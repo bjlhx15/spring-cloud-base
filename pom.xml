@@ -32,6 +32,7 @@
         <module>common-util</module>
         <module>service1-db</module>
         <module>service2-log</module>
+        <module>service6-es</module>
         <!--<module>service3-cache</module>-->
     </modules>
 
