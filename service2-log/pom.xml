@@ -13,5 +13,7 @@
     <modules>
         <module>service1-logback-properties</module>
         <module>service2-logback-xml</module>
+        <module>service3-log4j</module>
+        <module>service4-log4j2</module>
     </modules>
 </project>

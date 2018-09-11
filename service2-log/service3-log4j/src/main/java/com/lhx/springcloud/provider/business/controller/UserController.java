@@ -13,8 +13,10 @@ public class UserController {
     @GetMapping("/get")
     public User get() {
         System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaa");
-        for (int i = 0; i < 10; i++) {
-            logger.info("bbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+        for (int i = 0; i < 1000; i++) {
+            logger.info("infoinfoinfoinfoinfoinfoinfoinfo");
+            logger.error("errorerrorerrorerrorerrorerror");
+            logger.debug("debugdebugdebugdebugdebugdebug");
         }
         return new User("李宏旭1", 29);
     }

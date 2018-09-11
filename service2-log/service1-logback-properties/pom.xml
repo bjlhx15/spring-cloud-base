@@ -10,7 +10,7 @@
 
     <parent>
         <groupId>com.lhx.springcloud</groupId>
-        <artifactId>common-util</artifactId>
+        <artifactId>service2-log</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
