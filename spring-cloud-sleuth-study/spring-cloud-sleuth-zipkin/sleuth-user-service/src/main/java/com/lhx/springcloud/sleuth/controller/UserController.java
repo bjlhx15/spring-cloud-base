@@ -1,16 +1,20 @@
-package com.lhx.springcloud.provider.business.controller;
+package com.lhx.springcloud.sleuth.controller;
 
-import com.lhx.springcloud.base.model.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author lihongxu
+ * @desc @link(https://github.com/bjlhx15/spring-cloud-base)
+ * @since 2018/10/15 上午9:33
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @GetMapping("/get")
-    public User get(){
-        System.err.println("服务提供方1提供服务");
-        return new User("李宏旭1",29);
+
+    @GetMapping("/hi")
+    public String hi(){
+        return "ok";
     }
 }

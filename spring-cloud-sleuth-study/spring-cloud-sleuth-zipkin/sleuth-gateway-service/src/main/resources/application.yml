@@ -13,9 +13,22 @@ spring:
       percentage: 1.0
   zipkin:
     base-url: http://localhost:9411
-
-zuul:
-  routes:
-    api-a:
-      path: /user-api/**
-      serviceId: user-service
+  cloud:
+    gateway:
+#      discovery:      #方式一、是否与服务发现组件进行结合，通过 serviceId(必须设置成大写) 转发到具体的服务实例。默认为false，设为true便开启通过服务中心的自动根据 serviceId 创建路由的功能。
+#        locator:      #路由访问方式：http://Gateway_HOST:Gateway_PORT/大写的serviceId/**，其中微服务应用名默认大写访问。
+#          enabled: true
+#      routes:  #方式二 使用lb负载均衡加载
+#      - id: USERSERVICE
+#        uri: lb://USER-SERVICE:8762
+#        predicates:
+#          - Path=/userapi/**
+#        filters:
+#          - StripPrefix=1
+      routes:  #方式三 直接使用 域名地址
+      - id: USERSERVICE
+        uri: http://localhost:8762
+        predicates:
+          - Path=/userapi/**
+        filters:
+          - StripPrefix=1

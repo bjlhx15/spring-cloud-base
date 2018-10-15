@@ -13,11 +13,15 @@ import reactor.core.publisher.Mono;
  * @since 2018/10/14 下午4:19
  */
 public class LoggerFilter implements GlobalFilter,Ordered {
-//    @Autowired
-//    Tracer tracer;
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        return null;
+
+        return chain.filter(exchange).then(
+                Mono.fromRunnable(() -> {
+                    System.out.println("请求执行");
+                })
+        );
     }
 
     @Override
