@@ -13,5 +13,6 @@
     <modules>
         <module>spring-cloud-sleuth-zipkin</module>
         <module>spring-cloud-sleuth-zipkin-rabbitmq</module>
+        <module>spring-cloud-sleuth-zipkin-http</module>
     </modules>
 </project>

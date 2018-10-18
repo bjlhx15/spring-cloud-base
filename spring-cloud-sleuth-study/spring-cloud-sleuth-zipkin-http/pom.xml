@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-cloud-sleuth-zipkin-rabbitmq</artifactId>
+    <artifactId>spring-cloud-sleuth-zipkin-http</artifactId>
     <packaging>pom</packaging>
     <parent>
         <groupId>com.lhx.springcloud</groupId>
@@ -11,8 +11,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modules>
-        <module>sleuth-rabbitmq-erueka-server</module>
-        <module>sleuth-rabbitmq-gateway-service</module>
-        <module>sleuth-rabbitmq-user-service</module>
+        <module>sleuth-http-erueka-server</module>
+        <module>sleuth-http-gateway-service</module>
+        <module>sleuth-http-user-service</module>
     </modules>
 </project>

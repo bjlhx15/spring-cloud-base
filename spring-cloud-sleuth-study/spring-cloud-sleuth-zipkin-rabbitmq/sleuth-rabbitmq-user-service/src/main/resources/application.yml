@@ -8,9 +8,22 @@ spring:
   application:
     name: user-service
   zipkin:
-    base-url: http://localhost:9411
+    # http 方式可以不需要
+    #base-url: http://127.0.0.1:9410/
+    #发送的队列名称，默认zipkin，正常情况不要修改因为zipkin-server默认监控队列也是zipkin
+#    rabbitmq:
+#        queue: zipkin
+    #日志发送队列类型
+#    sender:
+#      type: RABBIT
+#  rabbitmq:
+#    addresses: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
+  #这里把抽样百分比设置为1，即信息全部采集
   sleuth:
     sampler:
-      percentage: 1.0
+      probability: 1.0
 
 #spring.zipkin.base-url=http://localhost:9411

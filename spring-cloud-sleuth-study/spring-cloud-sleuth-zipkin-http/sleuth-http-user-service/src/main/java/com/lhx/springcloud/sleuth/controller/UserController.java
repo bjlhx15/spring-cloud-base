@@ -15,8 +15,13 @@ import reactor.core.publisher.Mono;
 public class UserController {
 
     @GetMapping("/hi")
-    public Mono<String> hi() throws InterruptedException {
-        Thread.sleep(1000);
-        return Mono.just("ok");
+    public Mono<String> hi(String aa) throws InterruptedException {
+        Thread.sleep(100);
+        return Mono.just("ok"+aa);
+    }
+    @GetMapping("/hi2")
+    public Mono<String> hi2() throws InterruptedException {
+        throw new RuntimeException("mingming sha");
+        //return Mono.just("ok");
     }
 }

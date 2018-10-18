@@ -3,14 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sleuth-rabbitmq-gateway-service</artifactId>
+    <artifactId>sleuth-http-gateway-service</artifactId>
     <packaging>jar</packaging>
 
     <description>Demo project for Spring Boot</description>
 
     <parent>
         <groupId>com.lhx.springcloud</groupId>
-        <artifactId>spring-cloud-sleuth-zipkin-rabbitmq</artifactId>
+        <artifactId>spring-cloud-sleuth-zipkin-http</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -36,6 +36,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
+
         <!--服务链路追踪-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -44,14 +45,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
-        </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-stream-binder-rabbit</artifactId>-->
-        <!--</dependency>-->
-        <dependency>
-            <groupId>org.springframework.amqp</groupId>
-            <artifactId>spring-rabbit</artifactId>
         </dependency>
 
         <!-- 只需引入spring-boot-devtools 即可实现热部署 -->
