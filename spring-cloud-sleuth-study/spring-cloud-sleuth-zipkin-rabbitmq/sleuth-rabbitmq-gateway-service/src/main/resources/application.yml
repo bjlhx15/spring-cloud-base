@@ -10,7 +10,7 @@ spring:
     name: gateway-service
   sleuth:
     sampler:
-      percentage: 1.0
+      probability: 1.0
   zipkin:
     # http  rabbitmq方式可以不需要
 #    base-url: http://127.0.0.1:9411/

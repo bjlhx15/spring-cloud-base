@@ -13,9 +13,9 @@ spring:
     #发送的队列名称，默认zipkin，正常情况不要修改因为zipkin-server默认监控队列也是zipkin
 #    rabbitmq:
 #        queue: zipkin
-    #日志发送队列类型
-#    sender:
-#      type: RABBIT
+#    日志发送队列类型
+    sender:
+      type: RABBIT
 #  rabbitmq:
 #    addresses: 127.0.0.1
 #    port: 5672
