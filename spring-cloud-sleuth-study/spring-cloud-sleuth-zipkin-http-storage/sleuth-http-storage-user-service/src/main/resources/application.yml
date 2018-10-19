@@ -1,0 +1,21 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8762
+spring:
+  application:
+    name: user-service
+  zipkin:
+    # http 方式
+    base-url: http://127.0.0.1:9411/
+    sender:
+      type: WEB
+  #这里把抽样百分比设置为1，即信息全部采集 注意旧版本：spring.sleuth.sampler.percentage=0.1
+  sleuth:
+    sampler:
+      probability: 1.0
+logging:
+  level:
+    root: info
