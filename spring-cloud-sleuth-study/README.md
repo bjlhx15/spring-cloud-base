@@ -7,5 +7,5 @@
 ## spring-cloud-sleuth-zipkin-rabbitmq 继续学习项目
 *    最终服务是通过gateway-service收集数据，通过rabbitmq上传给zipkin-server。 
 
-## spring-cloud-sleuth-zipkin-http-storage-mysql mysql存储
+## spring-cloud-sleuth-zipkin-http-storage mysql、ElastSearch存储 结合kibana
 *    最终服务是通过gateway-service收集数据，通过Http上传给zipkin-server。  

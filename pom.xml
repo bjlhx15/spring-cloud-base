@@ -34,6 +34,7 @@
         <module>service2-log</module>
         <module>service6-es</module>
         <module>spring-cloud-sleuth-study</module>
+        <module>spring-cloud-admin-study</module>
         <!--<module>service3-cache</module>-->
     </modules>
 

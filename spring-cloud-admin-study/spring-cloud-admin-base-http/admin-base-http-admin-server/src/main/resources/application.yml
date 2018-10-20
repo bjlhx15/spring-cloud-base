@@ -1,0 +1,13 @@
+logging:
+  file: "logs/boot-admin-sample.log"
+server:
+  port: 8080
+
+spring:
+  application:
+    name: admin-server
+  boot:
+    admin:
+      routes:
+        endpoints: env,metrics,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream
+

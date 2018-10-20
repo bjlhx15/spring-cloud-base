@@ -1,0 +1,7 @@
+server:
+  port: 8762
+spring:
+  application:
+    name: user-service
+spring.boot.admin.client.url: "http://localhost:8080"
+management.endpoints.web.exposure.include: "*"
