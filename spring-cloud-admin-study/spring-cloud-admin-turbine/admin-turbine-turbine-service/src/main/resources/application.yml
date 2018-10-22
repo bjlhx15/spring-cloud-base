@@ -1,0 +1,27 @@
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+  client:
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8761}/eureka/
+server:
+  port: 8769
+spring:
+  application:
+    name: service-turbine
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+# turbine配置
+turbine:
+  aggregator:
+    clusterConfig: default
+  appConfig: client-one,client-two
+  clusterNameExpression: new String("default")

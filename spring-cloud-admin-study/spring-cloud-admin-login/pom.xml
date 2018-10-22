@@ -3,17 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-cloud-admin-study</artifactId>
+    <artifactId>spring-cloud-admin-login</artifactId>
     <packaging>pom</packaging>
     <parent>
         <groupId>com.lhx.springcloud</groupId>
-        <artifactId>springcloud-base</artifactId>
+        <artifactId>spring-cloud-admin-study</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modules>
-        <module>spring-cloud-admin-base-http</module>
-        <module>spring-cloud-admin-base-discovery</module>
-        <module>spring-cloud-admin-turbine</module>
-        <module>spring-cloud-admin-login</module>
+        <module>admin-login-erueka-server</module>
+        <module>admin-login-admin-server</module>
+        <module>admin-login-eureka-client-one</module>
     </modules>
 </project>
