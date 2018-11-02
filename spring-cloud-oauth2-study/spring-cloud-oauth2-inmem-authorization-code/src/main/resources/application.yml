@@ -1,0 +1,14 @@
+server:
+  port: 8080
+#  servlet:
+#    session:
+#      cookie:
+#        name: UISESSIONMEMBER
+        #不要忘记设置cookie-name，不然会有一些莫名其妙的问题，比如
+        #“User must be authenticated with Spring Security before authorization can be completed”
+#logging:
+#  level:
+#    root: trace
+
+
+

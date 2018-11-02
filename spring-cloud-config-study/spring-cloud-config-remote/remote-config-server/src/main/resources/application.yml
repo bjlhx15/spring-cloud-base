@@ -1,0 +1,28 @@
+server:
+  port: 8769
+
+#local
+#spring:
+#  cloud:
+#    config:
+#      server:
+#        native:
+#          search-locations: classpath:/shared
+#  profiles:
+#     active: native
+#  application:
+#    name: config-server
+
+# remote git
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/bjlhx15/SpringcloudConfig
+          searchPaths: respo
+          username:
+          password:
+      label: master
+  application:
+    name: config-server

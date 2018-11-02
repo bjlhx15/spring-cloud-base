@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>spring-cloud-oauth2-study</artifactId>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>com.lhx.springcloud</groupId>
+        <artifactId>springcloud-base</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modules>
+        <module>spring-cloud-oauth2-github</module>
+        <module>spring-cloud-oauth2-inmem-authorization-code</module>
+        <module>spring-cloud-oauth2-inmem-password</module>
+        <module>spring-cloud-oauth2-inmem-client_credentials</module>
+        <module>spring-cloud-oauth2-inmem-implicit</module>
+        <module>spring-cloud-oauth2-inmem-refreshtoken</module>
+        <module>spring-cloud-oauth2-jdbc</module>
+        <module>spring-cloud-oauth2-jwt</module>
+    </modules>
+</project>

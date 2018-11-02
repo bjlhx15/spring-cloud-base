@@ -1,0 +1,20 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        name: implicitcookie
+
+#logging:
+#  level:
+#    root: trace
+#spring:
+#  security:
+#    user:
+#      name: admin
+#      password: 123123
+
+
+
+
+

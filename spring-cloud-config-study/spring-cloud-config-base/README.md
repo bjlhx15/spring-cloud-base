@@ -1,0 +1,3 @@
+Config Server 可以从本地仓库读取配置文件，也可以从远处git仓库读取。
+本地仓库是指将所有的配置文件统一写在Config Server工程目录下。Config Server暴露Api接口，
+Config client通过调用Config Server的http api接口来读取配置。

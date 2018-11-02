@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>spring-cloud-oauth2-jwt</artifactId>
+    <packaging>pom</packaging>
+
+    <description>Demo project for Spring Boot</description>
+
+    <parent>
+        <groupId>com.lhx.springcloud</groupId>
+        <artifactId>spring-cloud-oauth2-study</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    
+    <modules>
+        <module>oauth2-jwt-eureka-server</module>
+        <module>oauth2-jwt-auth-service</module>
+        <module>oauth2-jwt-user-service</module>
+    </modules>
+</project>

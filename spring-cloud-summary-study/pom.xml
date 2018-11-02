@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>spring-cloud-summary-study</artifactId>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>com.lhx.springcloud</groupId>
+        <artifactId>springcloud-base</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modules>
+        <module>eureka-server</module>
+        <module>config-server</module>
+        <module>zipkin-service</module>
+        <module>monitor-service</module>
+        <module>uaa-service</module>
+        <module>gateway-service</module>
+        <module>admin-service</module>
+
+        <module>user-service</module>
+        <module>blog-service</module>
+        <module>log-service</module>
+        <module>common</module>
+    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
+        </dependency>
+    </dependencies>
+</project>

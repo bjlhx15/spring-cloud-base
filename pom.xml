@@ -35,7 +35,10 @@
         <module>service6-es</module>
         <module>spring-cloud-sleuth-study</module>
         <module>spring-cloud-admin-study</module>
-        <!--<module>service3-cache</module>-->
+        <module>spring-cloud-security-study</module>
+        <module>spring-cloud-oauth2-study</module>
+        <module>spring-cloud-summary-study</module>
+        <module>spring-cloud-config-study</module>
     </modules>
 
     <properties>

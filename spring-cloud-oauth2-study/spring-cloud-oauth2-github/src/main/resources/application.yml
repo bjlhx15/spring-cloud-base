@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+github:
+  client:
+    clientId: d32dbb892d50193fadba
+    clientSecret: 267f644d4b4a99f17a7774f566d4554c80d82b07
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+    tokenName: oauth_token
+    authenticationScheme: query
+  resource:
+    userInfoUri: https://api.github.com/user
+# THYMELEAF
+spring:
+  thymeleaf:
+    encoding: UTF-8
+# 热部署静态文件
+    cache: false
+# 使用HTML5标准
+    mode: HTML5
+
+
