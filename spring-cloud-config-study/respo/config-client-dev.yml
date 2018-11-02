@@ -1,4 +1,4 @@
 server:
-  port: 8763
+  port: 8764
 
 foo: foo version 12
