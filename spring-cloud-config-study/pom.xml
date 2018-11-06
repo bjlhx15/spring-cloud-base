@@ -13,5 +13,7 @@
     <modules>
         <module>spring-cloud-config-base</module>
         <module>spring-cloud-config-remote</module>
+        <module>spring-cloud-config-eureka</module>
+        <module>spring-cloud-config-eureka-bus</module>
     </modules>
 </project>

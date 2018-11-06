@@ -10,3 +10,13 @@ turbine:
 management:
   security:
     enabled: false
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    publisher-confirms: true
+    virtual-host: /
+management.endpoint.bus-refresh.enabled: true
+management.endpoints.web.exposure.include: bus-refresh

@@ -7,6 +7,15 @@ spring:
     user:
       name: admin
       password: 123456
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    publisher-confirms: true
+    virtual-host: /
+management.endpoint.bus-refresh.enabled: true
+management.endpoints.web.exposure.include: bus-refresh
 
 eureka:
 #  client:

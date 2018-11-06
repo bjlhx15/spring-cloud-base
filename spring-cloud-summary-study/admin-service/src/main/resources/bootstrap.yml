@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: admin-service
+  cloud:
+    config:
+#方式一 指定IP
+      uri: http://localhost:8769
+      fail-fast: true
+#方式二 服务发现
+#      fail-fast: true
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+
+  profiles:
+    active: pro

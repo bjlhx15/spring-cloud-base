@@ -19,9 +19,11 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/bjlhx15/SpringcloudConfig
-          searchPaths: respo
-          username:
+          # 仓库地址
+          uri: https://github.com/bjlhx15/spring-cloud-base.git
+          # 相对路径
+          searchPaths: spring-cloud-config-study/respo
+          username: bjlhx15@163.com
           password:
       label: master
   application:

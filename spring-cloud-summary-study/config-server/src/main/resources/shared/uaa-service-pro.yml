@@ -8,6 +8,16 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    publisher-confirms: true
+    virtual-host: /
+management.endpoint.bus-refresh.enabled: true
+management.endpoints.web.exposure.include: bus-refresh
 server:
   port: 9999
+
 

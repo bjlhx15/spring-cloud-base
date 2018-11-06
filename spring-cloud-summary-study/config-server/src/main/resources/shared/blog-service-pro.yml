@@ -22,3 +22,5 @@ spring:
     password: guest
     publisher-confirms: true
     virtual-host: /
+management.endpoint.bus-refresh.enabled: true
+management.endpoints.web.exposure.include: bus-refresh
