@@ -1,9 +1,9 @@
 server:
   port: 5000
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
 spring:
   sleuth:
     sampler:
@@ -33,9 +33,9 @@ spring:
         filters:
           - StripPrefix=1
       - id: blog-service
-        uri: lb://BLOG-SERVICE:8762
+        uri: lb://BLOG-SERVICE:8763
         predicates:
-          - Path=/userapi/**
+          - Path=/blogapi/**
         filters:
           - StripPrefix=1
 
@@ -51,8 +51,9 @@ ribbon:
   ReadTimeout: 20000
   ConnectTimeout: 20000
 
-
-
-management.endpoint.bus-refresh.enabled: true
-management.endpoints.web.exposure.include: bus-refresh
-
+eureka:
+  instance:
+  # 方式二、使用Eureka提交凭据
+    metadata-map:
+      user.name: admin
+      user.password: 123456

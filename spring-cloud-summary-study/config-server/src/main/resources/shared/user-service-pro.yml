@@ -3,11 +3,6 @@ server:
 
 
 spring:
-  zipkin:
-    base-url: http://localhost:9411
-#  rabbitmq:
-#    host: localhost
-#    port: 5672
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:53306/sys-user?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
@@ -18,6 +13,14 @@ spring:
       ddl-auto: update
     show-sql: true
 
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    # http  方式
+    base-url: http://localhost:9411/
+    sender:
+      type: WEB
   rabbitmq:
     host: localhost
     port: 5672
@@ -25,11 +28,17 @@ spring:
     password: guest
     publisher-confirms: true
     virtual-host: /
-management.endpoint.bus-refresh.enabled: true
-management.endpoints.web.exposure.include: bus-refresh
+#management.endpoint.bus-refresh.enabled: true
+#management.endpoints.web.exposure.include: bus-refresh
 
 foo: foo version 1
 
-feign:
-  hystrix:
-   enabled: true
+
+#spring.security.user.name: admin
+#spring.security.user.password: 123456
+#eureka:
+#  instance:
+#  # 方式二、使用Eureka提交凭据
+#    metadata-map:
+#      user.name: admin
+#      user.password: 123456

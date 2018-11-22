@@ -14,13 +14,13 @@ spring:
     password: guest
     publisher-confirms: true
     virtual-host: /
-management.endpoint.bus-refresh.enabled: true
-management.endpoints.web.exposure.include: bus-refresh
+#management.endpoint.bus-refresh.enabled: true
+#management.endpoints.web.exposure.include: bus-refresh
 
 eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: http://localhost:8761/eureka/
+##  client:
+##    serviceUrl:
+##      defaultZone: http://localhost:8761/eureka/
   instance:
   # 方式二、使用Eureka提交凭据
     metadata-map:

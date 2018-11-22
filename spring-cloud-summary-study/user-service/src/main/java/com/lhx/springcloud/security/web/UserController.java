@@ -42,9 +42,9 @@ public class UserController {
 
     @ApiOperation(value = "根据用户名获取用户", notes = "根据用户名获取用户")
     @PostMapping("/{username}")
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     @SysLogger("getUserInfo")
-    // @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
     public RespDTO getUserInfo(@PathVariable("username") String username){
         //参数判读省略
         User user=  userService.getUserInfo(username);

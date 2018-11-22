@@ -1,0 +1,43 @@
+server:
+  port: 8769
+
+#local
+#spring:
+#  cloud:
+#    config:
+#      server:
+#        native:
+#          search-locations: classpath:/shared
+#  profiles:
+#     active: native
+#  application:
+#    name: config-server
+
+# remote git
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          # 仓库地址
+          uri: https://github.com/bjlhx15/spring-cloud-base.git
+          # 相对路径
+          searchPaths: spring-cloud-config-study/respo
+          username: bjlhx15@163.com
+          password:
+      label: master
+  application:
+    name: config-server
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    publisher-confirms: true
+#    virtual-host: /
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+management.endpoint.bus-refresh.enabled: true
+management.endpoints.web.exposure.include: bus-refresh

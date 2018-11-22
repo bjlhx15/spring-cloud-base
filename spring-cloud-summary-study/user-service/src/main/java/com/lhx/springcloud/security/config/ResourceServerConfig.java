@@ -23,17 +23,23 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+//        http
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/user/login","/user/registry").permitAll()
+//                .antMatchers("/**").authenticated();
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/user/login","/user/register").permitAll()
+                .regexMatchers(".*swagger.*",".*v2.*",".*webjars.*","/user/login.*","/user/registry.*","/user/test.*"
+                ,"/actuator.*").permitAll()
                 .antMatchers("/**").authenticated();
     }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 //        resources.resourceId("foo").resourceId("/foo").tokenStore(tokenStore);
-        resources.resourceId("user-service").tokenStore(tokenStore);
+        resources.resourceId("userapi").tokenStore(tokenStore);
     }
 
     @Autowired

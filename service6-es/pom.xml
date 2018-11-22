@@ -12,5 +12,6 @@
     </parent>
     <modules>
         <module>service1-es-base</module>
+        <module>service2-es-client</module>
     </modules>
 </project>

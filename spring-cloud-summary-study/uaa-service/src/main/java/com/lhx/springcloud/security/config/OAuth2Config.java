@@ -49,9 +49,12 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
         clients.inMemory()
                 .withClient("user-service")
                 .secret("{noop}123456")//记得使用{id}
-                .authorizedGrantTypes("client_credentials", "password", "refresh_token")
+
+                .authorizedGrantTypes("implicit","refresh_token", "password", "authorization_code")
+//                .authorizedGrantTypes("client_credentials", "password", "refresh_token")
                 .scopes("all")
-                .resourceIds("foo","/foo")
+                .autoApprove(true)
+                .resourceIds("userapi")
                 .accessTokenValiditySeconds(1200)
                 .refreshTokenValiditySeconds(50000);
     }
@@ -59,6 +62,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore()).tokenEnhancer(jwtTokenEnhancer()).authenticationManager(authenticationManager);
+
     }
 
     @Bean
