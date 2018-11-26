@@ -1,18 +1,9 @@
 package com.github.bjlhx15.servicees;
 
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -24,7 +15,13 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  */
 public class EsQueryFullText {
 
-    private Client client;
+
+    private EsBaseUtil esBaseUtil;
+    @Before
+    public void init() throws UnknownHostException {
+        esBaseUtil = new EsBaseUtil();
+        esBaseUtil.createClient();
+    }
 
     /**
      * 1.1、查询所有数据
@@ -32,12 +29,12 @@ public class EsQueryFullText {
     @Test
     public void matchAll() {
         QueryBuilder qb = matchAllQuery();
-        excuteQuery(qb);
+        esBaseUtil.excuteQuery(qb);
     }
     @Test
     public void matchType() {
         QueryBuilder qb = matchAllQuery();
-        excuteQuery("bt_middle_data_test","form_son",qb);
+        esBaseUtil.excuteQuery("bt_middle_data_test","form_son",qb);
     }
 
     /**
@@ -46,7 +43,7 @@ public class EsQueryFullText {
     @Test
     public void match() {
         QueryBuilder qb = matchQuery("name", "张三");
-        excuteQuery(qb);
+        esBaseUtil.excuteQuery(qb);
     }
 
 
@@ -56,63 +53,22 @@ public class EsQueryFullText {
     @Test
     public void multiMatch() {
         QueryBuilder qb = multiMatchQuery("张三 12", "name","age");
-        excuteQuery(qb);
+        esBaseUtil.excuteQuery(qb);
     }
 
     @Test
     public void commonTerms() {
         QueryBuilder qb = commonTermsQuery("name", "张三");
-        excuteQuery(qb);
+        esBaseUtil.excuteQuery(qb);
     }
     @Test
     public void queryString() {
         QueryBuilder qb = queryStringQuery("+张三");
-        excuteQuery(qb);
+        esBaseUtil.excuteQuery(qb);
     }
     @Test
     public void simpleQueryString() {
         QueryBuilder qb = simpleQueryStringQuery("+张三 -12");
-        excuteQuery(qb);
-    }
-
-
-    private void excuteQuery(String index,String type,QueryBuilder qb) {
-        SearchResponse sr = client.prepareSearch(index)
-                .setTypes(type)
-                .setQuery(qb).setSize(20)
-                .execute().actionGet();
-        SearchHits searchHits = sr.getHits();
-        for (SearchHit searchHit : searchHits) {
-            System.out.println("数据:" + searchHit.getSourceAsString());
-        }
-    }
-    private void excuteQuery(QueryBuilder qb) {
-        excuteQuery("bt_middle_data_test","form",qb);
-    }
-
-
-
-
-
-
-
-
-    /**
-     * 客户端
-     */
-    private TransportClient createClient() throws UnknownHostException {
-        Settings settings = Settings.builder()
-                .put("cluster.name", "jiesi-5.4")
-                .build();
-        TransportClient client = new PreBuiltTransportClient(settings)//Settings.EMPTY
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.182.11"), 20101))
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.182.12"), 20101))
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.182.13"), 20101));
-        return client;
-    }
-
-    @Before
-    public void init() throws UnknownHostException {
-        client = createClient();
+        esBaseUtil.excuteQuery(qb);
     }
 }
