@@ -24,6 +24,7 @@ import java.net.UnknownHostException;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
+ * 精准搜索 针对keyword、number、date等
  * @author lihongxu
  * @since 2018/11/20 下午5:56
  */

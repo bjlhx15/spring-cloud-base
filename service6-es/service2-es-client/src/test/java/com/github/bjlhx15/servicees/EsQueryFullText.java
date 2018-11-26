@@ -1,16 +1,10 @@
 package com.github.bjlhx15.servicees;
 
-import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
-import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
-import org.elasticsearch.action.bulk.BulkItemResponse;
-import org.elasticsearch.action.bulk.BulkRequestBuilder;
-import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
@@ -20,31 +14,45 @@ import org.junit.Test;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
- * @author lihongxu
+ * 全文检索，针对text类型，模糊搜索
+ *  @author lihongxu
  * @since 2018/11/20 下午5:56
  */
 public class EsQueryFullText {
 
     private Client client;
 
+    /**
+     * 1.1、查询所有数据
+     */
     @Test
     public void matchAll() {
         QueryBuilder qb = matchAllQuery();
         excuteQuery(qb);
     }
+    @Test
+    public void matchType() {
+        QueryBuilder qb = matchAllQuery();
+        excuteQuery("bt_middle_data_test","form_son",qb);
+    }
 
+    /**
+     * 1.2、查询匹配数据，最少包含分词的一个
+     */
     @Test
     public void match() {
         QueryBuilder qb = matchQuery("name", "张三");
         excuteQuery(qb);
     }
+
+
+    /**
+     * 1.3、多字段查询匹配数据，最少包含分词的一个
+     */
     @Test
     public void multiMatch() {
         QueryBuilder qb = multiMatchQuery("张三 12", "name","age");
@@ -67,107 +75,27 @@ public class EsQueryFullText {
         excuteQuery(qb);
     }
 
-    private void excuteQuery(QueryBuilder qb) {
-        SearchResponse sr = client.prepareSearch("bt_middle_data_test")
-                .setTypes("form")
-                .setQuery(qb)
+
+    private void excuteQuery(String index,String type,QueryBuilder qb) {
+        SearchResponse sr = client.prepareSearch(index)
+                .setTypes(type)
+                .setQuery(qb).setSize(20)
                 .execute().actionGet();
         SearchHits searchHits = sr.getHits();
         for (SearchHit searchHit : searchHits) {
             System.out.println("数据:" + searchHit.getSourceAsString());
         }
     }
-
-
-    /**
-     * 添加数据
-     */
-    public void addDocument(String indexName, String type, String id, String json) {
-        esCreateIndex(indexName);
-        client.prepareIndex(indexName, type, id)
-                .setSource(json, XContentType.JSON)
-                .get();
+    private void excuteQuery(QueryBuilder qb) {
+        excuteQuery("bt_middle_data_test","form",qb);
     }
 
-    /**
-     * 添加数据
-     */
-    public void addDocument(String indexName, String type, String json) {
-        esCreateIndex(indexName);
-        client.prepareIndex(indexName, type, UUID.randomUUID().toString())
-                .setSource(json, XContentType.JSON)
-                .get();
-    }
 
-    /**
-     * 添加数据
-     */
-    public void addDocument(String indexName, String type, List<String> jsonArray) {
-        esCreateIndex(indexName);
 
-        BulkRequestBuilder bulkRequest = client.prepareBulk();
 
-        for (String s : jsonArray) {
-            bulkRequest.add(client.prepareIndex(indexName, type, UUID.randomUUID().toString())
-                    .setSource(s, XContentType.JSON
-                    )
-            );
-        }
 
-        BulkResponse bulkResponse = bulkRequest.get();
-        if (bulkResponse.isFragment()) {
-            for (BulkItemResponse bulkItemResponse : bulkResponse) {
-                System.out.println(bulkItemResponse.getId());
-            }
-        }
-    }
 
-    /**
-     * 添加数据
-     */
-    public void addDocument(String indexName, String type, Map<String, String> jsonArrayMap) {
-        esCreateIndex(indexName);
 
-        BulkRequestBuilder bulkRequest = client.prepareBulk();
-        for (Map.Entry<String, String> entry : jsonArrayMap.entrySet()) {
-            bulkRequest.add(client.prepareIndex(indexName, type, entry.getKey())
-                    .setSource(entry.getValue(), XContentType.JSON
-                    )
-            );
-        }
-
-        BulkResponse bulkResponse = bulkRequest.get();
-        if (bulkResponse.isFragment()) {
-            for (BulkItemResponse bulkItemResponse : bulkResponse) {
-                System.out.println(bulkItemResponse.getId());
-            }
-        }
-    }
-
-    /**
-     * 创建索引
-     */
-    public void esCreateIndex(String indexName) {
-        if (!existIndex(indexName)) {
-            client.admin().indices().prepareCreate(indexName).get();
-        }
-    }
-
-    /**
-     * 删除索引
-     */
-    private void deleteIndex(String indexName) {
-        client.admin().indices().prepareDelete(indexName).get();
-    }
-
-    /**
-     * 索引存在
-     */
-    private boolean existIndex(String indexName) {
-        IndicesExistsRequest request = new IndicesExistsRequest(indexName);
-        IndicesExistsResponse response = client.admin().indices().exists(request).actionGet();
-        return response.isExists();
-    }
 
     /**
      * 客户端
