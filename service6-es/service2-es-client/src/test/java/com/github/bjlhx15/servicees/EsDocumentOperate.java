@@ -38,6 +38,13 @@ public class EsDocumentOperate {
     }
 
     @Test
+    public void esWriteOneJson() {
+        String js1="{\"address\":\"benjing\",\"userInfo\":{\"email\":\"李宏旭\",\"phone\":\"12313\"},\"age\":\"12\",\"name\":\"张四\",\"num\":12}";
+        System.out.println(js1);
+        esBaseUtil.addDocument("bt_middle_data_test2", "form", js1);
+    }
+
+    @Test
     public void esWriteOne2() {
         String js1="{\"address\":\"benjing\",\"age\":\"12\",\"name\":\"张四nested\",\"num\":12,"+
         "  \"comments\":[\n" +

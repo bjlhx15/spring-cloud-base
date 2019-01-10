@@ -42,7 +42,13 @@ public class EsQueryTermLevel {
         esBaseUtil.excuteQuery(qb);
         //sout：{"address":"benjing","age":"1","name":"张三"}
     }
-
+    @Test
+    public void term2() {
+        QueryBuilder qb = termQuery("userInfo.email.keyword", "李宏旭");
+//        QueryBuilder qb = termQuery("name", "张三");//不行 name 是text类型
+        esBaseUtil.excuteQuery("bt_middle_data_test2","form",qb);
+        //sout：{"address":"benjing","age":"1","name":"张三"}
+    }
     /**
      * 1.2、精准in查询
      * sql: field in(1,2)

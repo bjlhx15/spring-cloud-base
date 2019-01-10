@@ -45,20 +45,20 @@ public class EsQueryJoining {
     /**
      * 1.2、布尔组合查询boolQuery
      */
-    @Test
-    public void hasChild() {
-        QueryBuilder qb = hasChildQuery(
-                "form_son",
-                termQuery("name", "张四"),
-                ScoreMode.Avg
-        );
-        esBaseUtil.excuteQuery(qb);
-        //sout
-        //1.6931472
-        //{"address":"benjing","age":"12","name":"张三3"}
-        //1.0
-        //{"address":"benjing","age":"1","name":"张三"}
-    }
+//    @Test
+//    public void hasChild() {
+//        QueryBuilder qb = hasChildQuery(
+//                "form_son",
+//                termQuery("name", "张四"),
+//                ScoreMode.Avg
+//        );
+//        esBaseUtil.excuteQuery(qb);
+//        //sout
+//        //1.6931472
+//        //{"address":"benjing","age":"12","name":"张三3"}
+//        //1.0
+//        //{"address":"benjing","age":"1","name":"张三"}
+//    }
 
 
     /**
