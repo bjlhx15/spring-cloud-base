@@ -50,4 +50,17 @@ public class UserController {
         User user=  userService.getUserInfo(username);
         return RespDTO.onSuc(user);
     }
+
+    @GetMapping("/test")
+    @SysLogger("test")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+    public RespDTO test(){
+        return RespDTO.onSuc("Ok");
+    }
+
+    @GetMapping("/test2")
+    @SysLogger("test2")
+    public RespDTO test2(){
+        return RespDTO.onSuc("Ok");
+    }
 }

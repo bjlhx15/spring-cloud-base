@@ -1,8 +1,9 @@
-# service2-log
-# 日志项目
-## service2-logback-xml
-*   查看可知，spring-boot使用logback输出日志文件
-*   在resources中添加logback.xml或logback-spring.xml（spring推荐）文件如下即可
+本机 ES 安装以及启动
+    
+brew install elasticsearch
+
+查看：
+brew info elasticsearch
        
-       
+brew services start elasticsearch       
        

@@ -3,7 +3,6 @@ package com.github.bjlhx15.servicees;
 import com.github.bjlhx15.eshelper.EsBase543Utils;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,13 +12,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -78,7 +74,8 @@ public class EsQueryFullText {
     @Test
     public void matchType() {
         QueryBuilder qb = matchAllQuery();
-        esBaseUtil.excuteQuery("bt_middle_data_test","form_son",qb);
+        esBaseUtil.excuteQuery("bt_middle_data","form",qb);
+//        esBaseUtil.excuteQuery("bt_middle_data_test","form",qb);
     }
 
     /**

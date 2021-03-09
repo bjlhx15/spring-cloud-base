@@ -41,6 +41,7 @@ import java.util.concurrent.ExecutionException;
  * @author lihongxu
  * @since 2018/11/26 上午10:57
  */
+@Deprecated
 public class EsBaseUtil {
     private Client client;
 
@@ -57,10 +58,14 @@ public class EsBaseUtil {
         Settings settings = Settings.builder()
                 .put("cluster.name", "jiesi-5.4")
                 .build();
+//        client = new PreBuiltTransportClient(settings)//Settings.EMPTY
+//                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.182.11"), 20101))
+//                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.182.12"), 20101))
+//                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.182.13"), 20101));
+
+
         client = new PreBuiltTransportClient(settings)//Settings.EMPTY
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.182.11"), 20101))
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.182.12"), 20101))
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("192.168.182.13"), 20101));
+                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
         return client;
     }
     //endregion

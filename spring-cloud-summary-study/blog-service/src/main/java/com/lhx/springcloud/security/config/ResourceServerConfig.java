@@ -32,7 +32,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.resourceId("blog-service").tokenStore(tokenStore);
+        resources.resourceId("blogapi").tokenStore(tokenStore);
     }
 
     @Autowired

@@ -56,6 +56,18 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 .autoApprove(true)
                 .resourceIds("userapi")
                 .accessTokenValiditySeconds(1200)
+                .refreshTokenValiditySeconds(50000)
+
+                .and()
+                .withClient("blog-service")
+                .secret("{noop}123456")//记得使用{id}
+
+                .authorizedGrantTypes("implicit","refresh_token", "password", "authorization_code")
+//                .authorizedGrantTypes("client_credentials", "password", "refresh_token")
+                .scopes("all")
+                .autoApprove(true)
+                .resourceIds("blogapi")
+                .accessTokenValiditySeconds(1200)
                 .refreshTokenValiditySeconds(50000);
     }
 

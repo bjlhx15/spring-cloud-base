@@ -2,6 +2,8 @@ package com.github.bjlhx15.eshelper;
 
 import org.elasticsearch.action.ActionResponse;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
+import org.elasticsearch.action.admin.indices.alias.IndicesAliasesResponse;
+import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsResponse;
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsResponse;
@@ -12,6 +14,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.client.IndicesAdminClient;
 import org.elasticsearch.cluster.health.ClusterHealthStatus;
 import org.elasticsearch.cluster.health.ClusterIndexHealth;
 import org.elasticsearch.cluster.metadata.MappingMetaData;
@@ -42,9 +45,11 @@ public interface IEsBaseUtils {
 
     /**
      * 外面传入构造方法
+     *
      * @param client
      */
     void init(Client client);
+
     /**
      * 客户端
      */
@@ -59,9 +64,39 @@ public interface IEsBaseUtils {
      * @param indexName 索引名称
      */
     default void esCreateIndex(String indexName) {
+        esCreateIndex(indexName, null, null);
+    }
+
+    default void esCreateIndex(String indexName, String aliasIndexName) {
+        esCreateIndex(indexName, aliasIndexName, null);
+    }
+
+    /**
+     * 1、创建索引【创建数据库】 单纯创建 没有指明映射以及分片信息
+     *
+     * @param indexName 索引名称
+     */
+    default boolean esCreateIndex(String indexName, String aliasIndexName, Settings.Builder builder) {
         if (!existIndex(indexName)) {
-            getClient().admin().indices().prepareCreate(indexName).get();
+            CreateIndexRequestBuilder prepareCreate = getClient().admin().indices().prepareCreate(indexName);
+            if (builder != null) {
+                prepareCreate.setSettings(builder);
+            }
+            boolean acknowledged = prepareCreate.get().isAcknowledged();
+            if (acknowledged && aliasIndexName != null && aliasIndexName.length() > 0)
+                return addAliasIndex(indexName,aliasIndexName);
+            return acknowledged;
         }
+        return true;
+    }
+
+    /**
+     * 现有基础上增加
+     */
+    default boolean addAliasIndex(String indexName, String aliasIndexName) {
+        IndicesAdminClient indicesAdminClient = getClient().admin().indices();
+        IndicesAliasesResponse response = indicesAdminClient.prepareAliases().addAlias(indexName, aliasIndexName).get();
+        return response.isAcknowledged();
     }
 
     /**
@@ -71,13 +106,11 @@ public interface IEsBaseUtils {
      * @param shards    分分片数
      * @param replicas  副本数
      */
-    default  void esCreateIndex(String indexName, int shards, int replicas) {
-        if (!existIndex(indexName)) {
-            esCreateIndex(indexName, Settings.builder()
-                    .put("index.number_of_shards", shards)
-                    .put("index.number_of_replicas", replicas)
-            );
-        }
+    default void esCreateIndex(String indexName, int shards, int replicas) {
+        esCreateIndex(indexName, Settings.builder()
+                .put("index.number_of_shards", shards)
+                .put("index.number_of_replicas", replicas));
+
     }
 
     /**
@@ -86,13 +119,10 @@ public interface IEsBaseUtils {
      * @param indexName 索引名称
      * @param builder   基本配置
      */
-    default  void esCreateIndex(String indexName, Settings.Builder builder) {
-        if (!existIndex(indexName)) {
-            getClient().admin().indices().prepareCreate(indexName)
-                    .setSettings(builder)
-                    .get();
-        }
+    default void esCreateIndex(String indexName, Settings.Builder builder) {
+        esCreateIndex(indexName, null, builder);
     }
+
 
     /**
      * 4、创建索引【创建数据库，表以及字段】 同时 具有mapping
@@ -101,7 +131,7 @@ public interface IEsBaseUtils {
      * @param type      type名 表名
      * @param mapping   映射文件 {"typeName":{"properties":{"fieldName":{"type":"string"}}}}
      */
-    default  void esCreateIndexWithMapping(String indexName, String type, String mapping) {
+    default void esCreateIndexWithMapping(String indexName, String type, String mapping) {
         if (!existIndex(indexName)) {
             getClient().admin().indices().prepareCreate(indexName)
                     .addMapping(type, mapping, XContentType.JSON)
@@ -116,7 +146,7 @@ public interface IEsBaseUtils {
      * @param type
      * @param mapping   {"properties":{"name":{"type ":"string "}}} 或者 {"typeName":{"properties":{"name":{"type ":"string "}}}}
      */
-    default  void esCreateOrUpdateTypeWithMapping(String indexName, String type, String mapping) {
+    default void esCreateOrUpdateTypeWithMapping(String indexName, String type, String mapping) {
         if (!existIndex(indexName)) {
             getClient().admin().indices().preparePutMapping(indexName)
                     .setType(type)
@@ -128,7 +158,7 @@ public interface IEsBaseUtils {
     /**
      * 获取映射
      */
-    default  String getMapping(String indexName, String typeName) {
+    default String getMapping(String indexName, String typeName) {
         MappingMetaData mappingMetaData = getClient().admin().cluster().prepareState().execute()
                 .actionGet().getState().getMetaData().getIndices()
                 .get(indexName).getMappings()
@@ -143,7 +173,7 @@ public interface IEsBaseUtils {
      * @param indices 空 刷新所有；指定具体刷新
      *                es默认的refresh间隔时间是1s 近乎实时搜索
      */
-    default  void esRefreshIndices(String[] indices) {
+    default void esRefreshIndices(String[] indices) {
         if (indices == null || indices.length == 0) {
             getClient().admin().indices().prepareRefresh().get();
         } else {
@@ -158,14 +188,14 @@ public interface IEsBaseUtils {
     /**
      * 删除索引
      */
-    default  void deleteIndex(String indexName) {
+    default void deleteIndex(String indexName) {
         getClient().admin().indices().prepareDelete(indexName).get();
     }
 
     /**
      * 判断索引是否存在
      */
-    default  boolean existIndex(String indexName) {
+    default boolean existIndex(String indexName) {
         IndicesExistsRequest request = new IndicesExistsRequest(indexName);
         IndicesExistsResponse response = getClient().admin().indices().exists(request).actionGet();
         return response.isExists();
@@ -176,29 +206,33 @@ public interface IEsBaseUtils {
     // region 文档操作
 
     /**
-     * 添加数据
+     * 添加数据 单条
      */
-    default  void addDocument(String indexName, String type, String id, String json) {
-        esCreateIndex(indexName);
+    default void addDocument(String indexName, String aliasIndexName, String type, String id, String json) {
+        esCreateIndex(indexName, aliasIndexName);
         getClient().prepareIndex(indexName, type, id)
                 .setSource(json, XContentType.JSON)
                 .get();
     }
 
     /**
-     * 添加数据
+     * 添加数据 单条
      */
-    default  void addDocument(String indexName, String type, String json) {
-        esCreateIndex(indexName);
-        getClient().prepareIndex(indexName, type, UUID.randomUUID().toString())
-                .setSource(json, XContentType.JSON)
-                .get();
+    default void addDocument(String indexName, String aliasIndexName, String type, String json) {
+        addDocument(indexName, aliasIndexName, type, UUID.randomUUID().toString(), json);
+    }
+
+    /**
+     * 添加数据 单条
+     */
+    default void addDocument(String indexName, String type, String json) {
+        addDocument(indexName, null, type, UUID.randomUUID().toString(), json);
     }
 
     /**
      * 添加数据
      */
-    default  void addDocument(String indexName, String type, List<String> jsonArray) {
+    default void addDocument(String indexName, String type, List<String> jsonArray) {
         esCreateIndex(indexName);
 
         BulkRequestBuilder bulkRequest = getClient().prepareBulk();
@@ -221,7 +255,7 @@ public interface IEsBaseUtils {
     /**
      * 添加数据
      */
-    default  void addDocument(String indexName, String type, Map<String, String> jsonArrayMap) {
+    default void addDocument(String indexName, String type, Map<String, String> jsonArrayMap) {
         esCreateIndex(indexName);
 
         BulkRequestBuilder bulkRequest = getClient().prepareBulk();
@@ -248,7 +282,7 @@ public interface IEsBaseUtils {
      * @param id
      * @return
      */
-    default  ActionResponse deleteDocumentById(String indexName, String type, String id) {
+    default ActionResponse deleteDocumentById(String indexName, String type, String id) {
         return getClient().prepareDelete(indexName, type, id).get();
     }
 
@@ -260,7 +294,7 @@ public interface IEsBaseUtils {
      * @param id
      * @return
      */
-    default  ActionResponse getDocumentById(String indexName, String type, String id) {
+    default ActionResponse getDocumentById(String indexName, String type, String id) {
         return getClient().prepareGet(indexName, type, id).get();
     }
 
@@ -272,7 +306,7 @@ public interface IEsBaseUtils {
      * @param id
      * @return
      */
-    default  ActionResponse updateDocumentById(String indexName, String type, String id, String updateJsonString) throws ExecutionException, InterruptedException {
+    default ActionResponse updateDocumentById(String indexName, String type, String id, String updateJsonString) throws ExecutionException, InterruptedException {
         UpdateRequest updateRequest = new UpdateRequest();
         updateRequest.index(indexName);
         updateRequest.type(type);
@@ -293,7 +327,7 @@ public interface IEsBaseUtils {
      * @param type
      * @param qb
      */
-    default  void excuteQuery(String index, String type, QueryBuilder qb) {
+    default void excuteQuery(String index, String type, QueryBuilder qb) {
         SearchResponse sr = getClient().prepareSearch(index)
                 .setTypes(type)
                 .setQuery(qb).setSize(20)
@@ -309,7 +343,7 @@ public interface IEsBaseUtils {
      *
      * @param qb
      */
-    default  void excuteQuery(QueryBuilder qb) {
+    default void excuteQuery(QueryBuilder qb) {
         excuteQuery("bt_middle_data_test", "form", qb);
     }
     //endregion
@@ -317,13 +351,14 @@ public interface IEsBaseUtils {
     //region 索引配置信息
 
     //设置索引 配置信息 default void esCreateIndex(String indexName, Settings.Builder builder)
+
     /**
      * 获取索引 配置信息
      *
      * @param indices 索索引名
      * @return
      */
-    default  ActionResponse getSettingResponse(String[] indices) {
+    default ActionResponse getSettingResponse(String[] indices) {
         GetSettingsResponse response = getClient().admin().indices()
                 .prepareGetSettings(indices).get();
         return response;
@@ -339,11 +374,10 @@ public interface IEsBaseUtils {
      * 更新索引 配置信息
      *
      * @param indexName 索引名
-     * @param builder 更新设置 Settings.builder().put("index.number_of_replicas", 0)
-     *
+     * @param builder   更新设置 Settings.builder().put("index.number_of_replicas", 0)
      * @return
      */
-    default  void updateIndicesSetting(String indexName, Settings.Builder builder) {
+    default void updateIndicesSetting(String indexName, Settings.Builder builder) {
         getClient().admin().indices().prepareUpdateSettings(indexName)
                 .setSettings(builder)
                 .get();
@@ -352,15 +386,15 @@ public interface IEsBaseUtils {
 
     //region 集群健康
 
-    default  ActionResponse getClusterHealthResponse(){
+    default ActionResponse getClusterHealthResponse() {
         ClusterHealthResponse healths = getClient().admin().cluster().prepareHealth().get();
         String clusterName = healths.getClusterName();
         int numberOfDataNodes = healths.getNumberOfDataNodes();
         int numberOfNodes = healths.getNumberOfNodes();
 
-        System.out.println("集群名称："+clusterName);
-        System.out.println("集群节点数："+numberOfNodes);
-        System.out.println("集群数据节点数："+numberOfDataNodes);
+        System.out.println("集群名称：" + clusterName);
+        System.out.println("集群节点数：" + numberOfNodes);
+        System.out.println("集群数据节点数：" + numberOfDataNodes);
 
         for (ClusterIndexHealth health : healths.getIndices().values()) {
             String index = health.getIndex();
@@ -368,13 +402,13 @@ public interface IEsBaseUtils {
             int numberOfReplicas = health.getNumberOfReplicas();
             ClusterHealthStatus status = health.getStatus();
 
-            System.out.println("集群索引名："+index+"；分片数："+numberOfShards
-                    +"；副本数："+numberOfReplicas+"；状态："+status);
+            System.out.println("集群索引名：" + index + "；分片数：" + numberOfShards
+                    + "；副本数：" + numberOfReplicas + "；状态：" + status);
         }
         return healths;
     }
 
-    default  ActionResponse getClusterHealthGreenStatus(String[] indices){
+    default ActionResponse getClusterHealthGreenStatus(String[] indices) {
         ClusterHealthResponse healthResponse = getClient().admin().cluster().prepareHealth(indices)
                 .setWaitForGreenStatus()
                 .get();
@@ -384,12 +418,13 @@ public interface IEsBaseUtils {
             int numberOfReplicas = health.getNumberOfReplicas();
             ClusterHealthStatus status = health.getStatus();
 
-            System.out.println("集群索引名："+index+"；分片数："+numberOfShards
-                    +"；副本数："+numberOfReplicas+"；状态："+status);
+            System.out.println("集群索引名：" + index + "；分片数：" + numberOfShards
+                    + "；副本数：" + numberOfReplicas + "；状态：" + status);
         }
         return healthResponse;
     }
-    default ActionResponse getClusterHealthGreenStatus(String index){
+
+    default ActionResponse getClusterHealthGreenStatus(String index) {
         ClusterHealthResponse healthResponse = getClient().admin().cluster().prepareHealth(index)
                 .setWaitForGreenStatus()
                 .get();
